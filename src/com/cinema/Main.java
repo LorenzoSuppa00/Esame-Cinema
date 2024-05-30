@@ -20,7 +20,8 @@ public class Main {
 					+ "I - Inserimento\n"
 					+ "S - Stampa\n"
 					+ "Q - Uscire dal programma\n"
-					+ "V - Totale vendite film");
+					+ "V - Totale vendite film\n"
+					+ "C - Totale incassi film");
 			
 			String input = interceptor.nextLine();
 			
@@ -89,6 +90,18 @@ public class Main {
 					System.out.println("ERRORE: " + e.getMessage());
 				}
 				break;
+			case "C":
+				try {
+					BigliettoDAL incassiDal = new BigliettoDAL();
+					System.out.println("Qual è il film del quale vuoi sapere il totale degli incassi?");
+					String nome_movie = interceptor.nextLine();
+					float incassi = incassiDal.findMovieCash(nome_movie);
+					System.out.println("L'incasso di " + nome_movie + " è pari a " + incassi);
+					
+					
+				} catch (SQLException e) {
+					System.out.println("ERRORE: " + e.getMessage());
+				}
 			case "Q":
 				insAbilitato = false;
 				break;

@@ -93,6 +93,23 @@ public class BigliettoDAL {
 		
 	}
 	
+	public float findMovieCash(String titolo) throws SQLException{
+		Connection conn = this.ds.getConnection();
+		float risultato = 0;
+		
+		String query = "SELECT SUM(prezzo) AS Tot_incassi FROM Biglietto WHERE titolo_film = ?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setString(1, titolo);
+		
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+	        risultato = rs.getFloat("Tot_incassi");
+	    }
+		
+		conn.close();
+		return risultato;
+	}
+	
 
 }
 
