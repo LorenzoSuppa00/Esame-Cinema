@@ -19,7 +19,8 @@ public class Main {
 			System.out.println("\nScegli l'operazione: \n"
 					+ "I - Inserimento\n"
 					+ "S - Stampa\n"
-					+ "Q - Uscire dal programma");
+					+ "Q - Uscire dal programma\n"
+					+ "V - Totale vendite film");
 			
 			String input = interceptor.nextLine();
 			
@@ -63,8 +64,8 @@ public class Main {
 				break;
 			case "S":
 				try {
-					BigliettoDAL conDal = new BigliettoDAL();
-					ArrayList<Biglietto> elenco = conDal.findAll();
+					BigliettoDAL ticketDal = new BigliettoDAL();
+					ArrayList<Biglietto> elenco = ticketDal.findAll();
 					
 					for(int i=0; i<elenco.size(); i++) {
 						System.out.println(elenco.get(i));
@@ -74,6 +75,19 @@ public class Main {
 					System.out.println("ERRORE: " + e.getMessage());
 				}
 				
+				break;
+			case "V":
+				try {
+					
+					BigliettoDAL venditeDal = new BigliettoDAL();
+					
+					System.out.println("Qual è il film del quale vuoi sapere il numero di biglietti venduti?");
+					String nome_film = interceptor.nextLine();
+					int vendite = venditeDal.findTicketSales(nome_film);
+					System.out.println(nome_film + " ha venduto "  + vendite + " biglietto/i");
+				} catch (SQLException e) {
+					System.out.println("ERRORE: " + e.getMessage());
+				}
 				break;
 			case "Q":
 				insAbilitato = false;

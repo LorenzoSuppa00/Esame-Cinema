@@ -75,6 +75,23 @@ public class BigliettoDAL {
 		return risultato;
 	}
 
+	public int findTicketSales(String titolo) throws SQLException{
+		Connection conn = this.ds.getConnection();
+		int risultato = 0;
+		
+		String query = "SELECT COUNT(*) AS Tot_Vendite FROM Biglietto WHERE titolo_film = ?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setString(1, titolo);
+		
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+	        risultato = rs.getInt("Tot_Vendite");
+	    }
+		
+		conn.close();
+		return risultato;
+		
+	}
 	
 
 }
